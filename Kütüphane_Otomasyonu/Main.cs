@@ -14,7 +14,7 @@ namespace Kütüphane_Otomasyonu
     public partial class Main : Form
     {
         //SQL Bağlantısı için gereken satır
-        SqlConnection connection = new SqlConnection("Server='TRRONM00026';Database='Kütüphane';Trusted_Connection=True");
+        SqlConnection connection = new SqlConnection("Server='yourServerName';Database='youtDatabaseName';Trusted_Connection=True");
         DataSet ds = new DataSet(); //Dataset oluşturuyoruz.
         DataTable table = new DataTable();
         public Main()
