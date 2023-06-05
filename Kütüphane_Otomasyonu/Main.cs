@@ -13,8 +13,9 @@ namespace Kütüphane_Otomasyonu
 {
     public partial class Main : Form
     {
-        SqlConnection connection = new SqlConnection("Server='yourServerName';Database='yourDatabaseName';Trusted_Connection=True");
-        DataSet ds = new DataSet();
+        //SQL Bağlantısı için gereken satır
+        SqlConnection connection = new SqlConnection("Server='TRRONM00026';Database='Kütüphane';Trusted_Connection=True");
+        DataSet ds = new DataSet(); //Dataset oluşturuyoruz.
         DataTable table = new DataTable();
         public Main()
         {
@@ -23,7 +24,7 @@ namespace Kütüphane_Otomasyonu
 
         private void btnKitapEkle_Click(object sender, EventArgs e)
         {
-            connection.Open();
+            connection.Open(); // Bağlantıyı sağladı
             SqlCommand command = new SqlCommand("insert into Kitaplar(KitapId,KitapAdı,KitapYazar,SayfaSayısı) values (@KitapId,@KitapAdı,@KitapYazar,@SayfaSayısı)", connection);
             command.Parameters.AddWithValue("@KitapId", txtKitapId.Text);
             command.Parameters.AddWithValue("@KitapAdı", txtKitapAdı.Text);
@@ -39,9 +40,10 @@ namespace Kütüphane_Otomasyonu
         private void btnKitapListele_Click(object sender, EventArgs e)
         {
             connection.Open();
-            SqlDataAdapter adapter = new SqlDataAdapter("select * from Kitaplar", connection);
+            //Select * from Kitaplar = Kitaplar tablosundaki tüm verileri listeler
+            SqlDataAdapter adapter = new SqlDataAdapter("select * from Kitaplar", connection); //Aldığım verileri listelemek için kullanılan sınıf.
             adapter.Fill(ds, "Kitaplar");
-
+            //Data grid view'e aldığım verileri doldur.
             dgwKitaplar.DataSource = ds.Tables["Kitaplar"];
             connection.Close();
 
@@ -50,11 +52,7 @@ namespace Kütüphane_Otomasyonu
         private void btnOrderYazar_Click(object sender, EventArgs e)
         {
             connection.Open();
-            //SqlDataAdapter adapter = new SqlDataAdapter("select * from Kitaplar where KitapYazar='@KitapYazarı'", connection);
-            //adapter.Fill(ds, "Kitaplar");
-
-            //dgwKitaplar.DataSource = ds.Tables["Kitaplar"];
-
+            //Dataları bağlamam için kullanılan class
             BindingSource bs = new BindingSource();
             bs.DataSource = dgwKitaplar.DataSource;
 
